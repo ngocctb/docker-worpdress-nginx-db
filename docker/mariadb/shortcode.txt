@@ -1,0 +1,9 @@
+https://mariadb.com/kb/en/mysql-command-line-client/
+
+```
+mysql db_name
+```
+or 
+```
+mysql --user=user_name --password=your_password db_name
+```

@@ -1,0 +1,57 @@
+version: "3"
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  ### Web Server ##################################
+  nginx:
+    container_name: wordpress_nginx
+    build:
+      context: ./docker/nginx
+      args:
+        APP_URL: "http://localhost:8000"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./cms:/var/www/wordpress
+    links:
+      - cms
+    networks:
+      - backend
+  ### Application ##################################
+  cms:
+    container_name: wordpress_cms
+    build: ./docker/php
+    environment:
+      APP_DEBUG: "false"
+    volumes:
+      - ./cms:/var/www/wordpress
+    expose:
+      - 8000
+    links:
+      - db
+    networks:
+      - backend
+  ### Database Server ##################################
+  db:
+    build: ./docker/mariadb
+    container_name: wordpress_database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    restart: always
+    volumes:
+      - ./docker/mariadb/data:/var/lib/mysql
+    expose:
+      - 3306
+    networks:
+      - backend
+  ### Redis Cache ##################################
+  redis:
+    image: redis:3.2
+    networks:
+      - backend
