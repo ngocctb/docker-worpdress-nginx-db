@@ -33,6 +33,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install mbstring pdo pdo_pgsql
 
+RUN docker-php-ext-install mysqli
+
 RUN docker-php-ext-install zip
 
 RUN php -v

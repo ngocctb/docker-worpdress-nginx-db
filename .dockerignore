@@ -1,0 +1,11 @@
+.editorconfig
+.env.example
+.git
+.gitignore
+.gitattributes
+.idea
+.styleci.yml
+vendor
+node_modules
+docker-compose.yml
+

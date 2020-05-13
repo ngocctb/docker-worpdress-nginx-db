@@ -32,6 +32,7 @@ services:
       - 8000
     links:
       - db
+      - redis
     networks:
       - backend
   ### Database Server ##################################
@@ -46,8 +47,8 @@ services:
     restart: always
     volumes:
       - ./docker/mariadb/data:/var/lib/mysql
-    expose:
-      - 3306
+    ports:
+      - 33061:3306
     networks:
       - backend
   ### Redis Cache ##################################
