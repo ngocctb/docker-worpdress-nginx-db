@@ -16,5 +16,5 @@ Edit bash
 docker exec -it wordpress_nginx bash
 docker exec -it wordpress_cms bash
 docker exec -it wordpress_db bash
-docker exec -it wordpress_redis_1 bash
+docker exec -it wordpress_redis bash
 ```

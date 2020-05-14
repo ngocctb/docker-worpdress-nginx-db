@@ -37,4 +37,39 @@ if($result){
 }
 
 $mysqli->close();
+
+
+echo  "<hr/>";
+
+//Connecting to Redis server on localhost 
+$redis = new Redis(); 
+
+$redis->connect('redis', 6379); 
+
+echo "Connection to server sucessfully"; 
+
+echo "<br/>";
+
+//check whether server is running or not 
+echo "Server is running: ".$redis->ping();
+
+//set the data in redis string 
+$redis->set("tutorial-name", "Redis tutorial"); 
+
+echo "<br/>";
+
+// Get the stored data and print it 
+echo "Stored string in redis:: " .$redis->get("tutorial-name");
+
+//store data in redis list 
+$redis->lpush("tutorial-list", "Redis"); 
+$redis->lpush("tutorial-list", "Mongodb"); 
+$redis->lpush("tutorial-list", "Mysql");  
+
+// Get the stored data and print it 
+$arList = $redis->lrange("tutorial-list", 0 ,5); 
+echo "<br/>";
+echo "Stored string in redis:: "; 
+print_r($arList); 
+
 ?>
